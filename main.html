@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href = "style.css">
+    </head>
+    <body>
+        <div class = "slidecontainer" class = "aspect-ratio" style = "position: absolute; top: 20px; left: 800px">
+            <h1 >Monitor</h1>
+            <h3 >ants_on_grid: <span id="demo4"></span></h3>
+            <h3 >food_in_nest: <span id="demo5"></span></h3>
+            <h1 >Parameter Settings</h1>
+            <h3 >brush_value: <span id="demo1"></span></h3>
+            <input type = "range" min = "1" max = "10" value = "3" class = "slider" id = "myRange1">
+            <h3 >basic_lifetime: <span id="demo2"></span></h3>
+            <input type = "range" min = "1" max = "1000" value = "500" class = "slider" id = "myRange2">  
+            <h3 >max_ants_on_grid: <span id="demo3"></span></h3>
+            <input type = "range" min = "0" max = "500" value = "100" class = "slider" id = "myRange3">
+            <h3 >ms_between_updates: <span id="demo6"></span></h3>
+            <input type = "range" min = "1" max = "100" value = "33" class = "slider" id = "myRange6">    
+            <h1 >How to simulate?</h1>
+            <h3 >
+                Key A: generate Ant<br>
+                Key B: generate Block<br>
+                Key C: clear gird<br>
+                Click: generate food<br>
+            </h3>
+            <h3 >Author: Yun-Ye, Cai</h3>
+        </div>
+        <script src = "main.js">
+        </script>
+    </body>
+</html>
