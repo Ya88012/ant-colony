@@ -104,6 +104,7 @@ var nest_x = 0;
 var nest_y = 0;
 var food_in_nest = 0;
 var basic_lifetime = 300;
+var sense_range = 1;
 
 Math.to_radians = function(degrees) {
   return degrees * Math.PI / 180;
@@ -133,6 +134,7 @@ function Ant() {
     this.lifetime = basic_lifetime + get_random_int(0, basic_lifetime);
     this.last_x = null;
     this.last_y = null;
+    this.sense_range = sense_range;
     console.log(this.lifetime);
 }
 
@@ -171,7 +173,7 @@ function simulate_and_visualize() {
 function place_food() {
     var center_i = Math.round(grid_length * 0.8);
     var center_ii = center_i;
-    var max_distance = grid_length/10;
+    var max_distance = grid_length / 10;
     for (var i = center_i-max_distance; i <= center_i+max_distance; i++) {
         for (var ii = center_ii-max_distance; ii < center_ii+max_distance; ii++) {
             bounded_i = get_bounded_index(i);
@@ -318,8 +320,8 @@ function move_ant(i,ii) {
             var current;
             var min = 0;
             var max = 0;
-            for (var n_i = i-1; n_i <= i+1; n_i++) {
-                for (var n_ii = ii-1; n_ii <= ii+1; n_ii++) {
+            for (var n_i = i-grid[i][ii].ant.sense_range; n_i <= i+grid[i][ii].ant.sense_range; n_i++) {
+                for (var n_ii = ii-grid[i][ii].ant.sense_range; n_ii <= ii+grid[i][ii].ant.sense_range; n_ii++) {
                     bounded_n_i = get_bounded_index(n_i);
                     bounded_n_ii = get_bounded_index(n_ii);
                     current = grid[bounded_n_i][bounded_n_ii].signal;
@@ -451,8 +453,6 @@ document.addEventListener('keydown', function(e){
         ants_out_of_nest++;
     }
     else if (e.key == 'b') {
-        // console.log("now_mouse_grid_x:", now_mouse_grid_x);
-        // console.log("now_mouse_grid_y:", now_mouse_grid_y);
         for (var i = get_bounded_index(now_mouse_grid_x - brush); i <= get_bounded_index(now_mouse_grid_x + brush); i++ ) {
             for (var j = get_bounded_index(now_mouse_grid_y - brush); j <= get_bounded_index(now_mouse_grid_y + brush); j++ ) {
                 grid[i][j].if_block = true;
@@ -513,13 +513,23 @@ slider3.oninput = function() {
 var output6 = document.getElementById("demo6");
 var slider6 = document.getElementById("myRange6");
 output6.innerHTML = slider6.value;
-ms_between_updates = parseInt(ms_between_updates.value);
+ms_between_updates = parseInt(ms_between_updates);
 
 slider6.oninput = function() {
     output6.innerHTML = this.value;
     ms_between_updates = parseInt(this.value);
     clearInterval(interval_id);
     interval_id = setInterval(simulate_and_visualize, ms_between_updates);
+}
+
+var output7 = document.getElementById("demo7");
+var slider7 = document.getElementById("myRange7");
+output7.innerHTML = slider7.value;
+sense_range = parseInt(sense_range);
+
+slider7.oninput = function() {
+    output7.innerHTML = this.value;
+    sense_range = parseInt(this.value);
 }
 
 var output4 = document.getElementById("demo4");
